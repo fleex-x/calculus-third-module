@@ -1,0 +1,246 @@
+%
+% Проверьте, что вы сохранили файл в кодировке utf8
+% encoding: utf-8
+%
+
+\documentclass[12pt]{report} % 12 -- размер шрифта
+
+\usepackage{cmap} % Чтобы можно было копировать русский текст из pdf
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel} % В частности эта строка отвечает за правильные переносы слов в конце строки
+\usepackage[utf8]{inputenc} % Проверьте, что кодировка файла -- тоже utf8
+\usepackage{amsmath, amssymb} % Чтобы юзать математические символы
+
+\usepackage{hologo} % Логотип LaTex
+\usepackage[russian]{hyperref} % http ссылки на внешние источники
+
+% Меняем размер листа, можно не менять
+\textwidth=160mm
+\hoffset=-15mm
+\textheight=240mm
+\voffset=-20mm
+
+\newcommand{\Section}[1]{\section{#1}\vspace{-1.5em}\hspace*{\parindent}\unskip} % Фиксим багу с отступом в начале section, заодно пример собственных функций
+
+
+\author{Захаренко Артем}
+\title{Конспект конспекта по матану}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\chapter*{Анализ в метрических пространствах}
+\addcontentsline{toc}{chapter}{Анализ в метрических пространствах}
+
+\section*{Метрические и нормированные пространства}
+\addcontentsline{toc}{section}{Метрические и нормированные пространства}
+\subsection*{Определение:}
+
+Метрика $\rho : X \times X \rightarrow [0, +\inf)$
+\begin{enumerate}
+  \setlength{\parskip}{0pt} % Отступ перед списком
+  \setlength{\itemsep}{0pt} % Отступ между строками списка
+  \item $\rho(x, y) = 0 \Leftrightarrow x = y$
+  \item $\rho(x, y) = \rho(y, x)$
+  \item Неравентсво треугольника $\rho(x, z) \leqslant \rho(x, y) + \rho(y, z)$
+\end{enumerate}
+Примеры:
+\begin{enumerate}
+  \setlength{\parskip}{0pt} % Отступ перед списком
+  \setlength{\itemsep}{0pt} % Отступ между строками списка
+  \item Дискретная метрика  
+  
+  \begin{equation*}
+ \rho(x, y) =  
+ \begin{cases}
+   0, & x = y\\
+   1, & x \neq y\\
+ \end{cases}
+\end{equation*}\\
+ \item Манхетенская $\mathbb{R}^2$, $\rho((x_1, y_1), (x_2, y_2)) = |x_1 - x_2| + |y_1 - y_2|$
+ \item $C[a, b]$ $\rho(f, g) = \int\limits_{a}^{b}{|f(x) - g(x)|dx}$\\
+ 		$\rho(f, h) = \int\limits_{a}^{b}(|f - h|) \leqslant \int\limits_{a}^{b}(|f - g| + |g - h|) =
+ 		\int\limits_{a}^{b}(|f - g|)  + \int\limits_{a}^{b}(|g - h|) = \rho(f, g) + \rho(g, h) $
+ 		
+ 	\item Расстояние в произвольном $n$-мерном пространстве.
+\end{enumerate} 
+
+\subsection*{Определение:}
+$(X, \rho)$ --- метрическое пространство. \\ \\
+$B_r(x) = \{y \in X : \rho(x, y) < r\}$ \\ \\
+$\overline{B}_r(x) = \{y \in X : \rho(x, y) \leqslant r\}$
+\subsubsection*{Свойства:}
+
+\begin{enumerate}
+\item $B_{r_1}(x) \cap B_{r_2}(x) = B_{\min(r_1, r_2)}(x)$
+\end{enumerate}
+
+\section*{Открытые и замкнутые множества}
+\addcontentsline{toc}{section}{Открытые и замкнутые множества}
+
+
+\subsection*{Определение: открытое множество}
+$A \subset X$ --- открытое, если $\forall a \in A \ \ \exists r > 0 \ : \ B_r(a) \subset A$
+\subsection*{Теорема об открытых множествах}
+\begin{enumerate}
+\item $X, \varnothing$ --- открытые
+\item Объединение конечного числа открытых множеств --- открытое множество
+\item Пересечение конечного числа открытых множеств --- открытое множество
+\item $B_r(x)$ - открытое множество
+\end{enumerate}
+
+Доказательство:\\
+\begin{enumerate}
+\item Очев
+\item Очев
+\item Очев
+\item $x \in B_R(a)$, берем $r = R - \rho(x, a)$. Докажем, что $B_r(x) \subset B_R(a)$. $y \in B_r(x) \Rightarrow \rho(x, y) < r = R - \rho(x, y) \Rightarrow R > \rho(x, y) + \rho(a, x) \geqslant \rho(a, y) \Rightarrow y \in B_R(a)$ 
+\end{enumerate}
+
+\subsection*{Определение: внутренняя точка}
+Пусь $(X, \rho)$ - метрическое пространство, $A \subset X$, $a \in A$. Тогда $a$ - внутренняя $\Leftrightarrow$ $\exists \ r > 0 \ : \ B_r(a) \subset A$
+
+\subsection*{Определение: внутренность множества}
+Внутренность множества $Int A = \{a \in A : a$ ---	 внутренняя $\}$
+
+\subsubsection*{Свойства:}
+\begin{enumerate}
+\item	$Int A \subset A$
+\item $Int A = \cup_{C \subset A}C$, $C$ - открытые\\
+Доказательство:
+
+Пусть $B := \cup{A_i}$, $A_i$ --- все открытые подмножества $A$. Если $x \in B \Rightarrow \exists \ A_i : x \in A_i \Rightarrow \exists \ r > 0 : \  B_r(x) \subset A_i \subset A$. Если $x \in Int A \Rightarrow \exists r > 0 : B_r(x) \subset A$, $B_r(x)$ --- открытое множество.
+\item $Int A	$ --- открыто
+\item $Int A = A$ $\Leftrightarrow$ $A$ --- открыто
+\item $B \subset A \Rightarrow Int B \subset A$
+\item $Int (A \cap B) = Int A \cap Int B$ --- очев
+\item $IntIntA = IntA$
+\end{enumerate}
+
+\subsection*{Определение: замкнутое множество}
+$A$ --- замкнуто, если его дополнение (в $X$) открыто.
+
+\subsection*{Теорема о свойствах замнкутых множеств}
+\begin{enumerate}
+\item $X, \varnothing$ --- замкнуты
+\item Пересечение любого числа замкнутых множеств --- замкнутое (перетащим с открытых)
+\item Объединене конечного числа замкнутых множеств --- замкнутое (перетащим с открытых)
+\item $\overline{B}_r(a)$ --- замкнутое.
+\end{enumerate}
+Доказательство:
+Тут все должно быть очевидно :)
+
+\subsection*{Определение: замыкание множества}
+Пересечение всех замкнутых множеств, содержащих данное --- его замыкание (обозначают за $CL(A)$)
+
+\section*{Предельные точки}
+\addcontentsline{toc}{section}{Предельные точки}
+
+Точка $x$ предельная для множества $A$ $\Leftrightarrow$ если $\forall r > 0 B_r(x) \cap A \neq \varnothing$. $A^{\prime}$ --- множество предельных точек $A$.
+
+\subsection*{Свойства предельных точек}
+
+\begin{enumerate}
+\item $CL(A) = A \cup A^{\prime}$
+\item Если $A$ замкнуто, то $A^{\prime} \subset A$
+\end{enumerate}
+
+\subsection*{Теорема}
+$x \in A^{\prime} \Leftrightarrow \forall r > 0 B_r(x)$ содержит бесконечно много точек из $A$. (ну это очев, из определения)
+\section*{Подпространства}
+\addcontentsline{toc}{section}{Подпространства}
+$(X, \rho)$--- метрическое пространство\\
+$Y \subset X$\\
+$(Y, \rho|_{Y \times Y})$ --- подпространство
+\subsection*{Теорема об открытых и замкнутых множествах в подпространстве}
+$(X, \rho)$ --- метрическое пр-во $(Y, \rho)$ --- под-во, $A \subset Y$.
+\begin{enumerate}
+\item $A$ открыто в $Y$ $\Leftrightarrow$ $\exists G$ открытое в $X \ : A = G \cap Y$
+\item $A$ замкнуто в $Y$ $\Leftrightarrow$ $\exists G$ замкнуто в $X \ : A = G \cap Y$
+\end{enumerate}
+\section*{Нормированные пространства}
+\addcontentsline{toc}{section}{Нормированные пространства}
+$X$ --- векторное пространство над $\mathbb{R}$.
+$||x||$:$X \rightarrow \mathbb{R}$ --- 	норма, если:
+\begin{enumerate}
+\item $||x|| \geqslant 0 \forall x \in X$, $||x|| = 0 \Leftrightarrow x = 0_{X}$
+\item $||\lambda x|| = \lambda||x|| \ \ \forall x \in X, \lambda \in \mathbb{R}$
+\item $||x + y|| \leqslant ||x|| + ||y||$
+\end{enumerate}
+\subsection*{Скалярное произведение}
+$\langle . \ . \rangle: X \times X \rightarrow \mathbb{R}$
+--- скалярное произведение, если
+\begin{enumerate}
+\item $\langle x, x \rangle \geqslant 0, \ \langle x, x \rangle = 0 \Leftrightarrow x = 0$
+\item $\langle x + y, z \rangle = \langle x, z \rangle + \langle y, z \rangle$
+\item $\langle x, y \rangle = \langle y, x \rangle$
+\item $\langle \lambda x, y \rangle = \lambda \langle x, y \rangle, \lambda \in \mathbb{R}$
+\end{enumerate}
+
+\subsection*{Свойства скалярного произведения и нормы}
+\begin{enumerate}
+\item Нер-во Коши-Буняковского $\langle x, y \rangle ^2 \leqslant \langle x, x \rangle \cdot \langle y, y \rangle$
+Д-во:\\
+$f(t) := \langle x + ty, x + ty \rangle \geqslant 0$\\
+$\langle x, x \rangle + t\langle x, y \rangle + t\langle y, x \rangle + t^2 \langle y, y \rangle$ --- квдратный трехчлен больший 0, то есть $D \leqslant 0$. Дальше очев.
+\item $||x|| = \sqrt{\langle x, x \rangle}$ --- норма. Все очев, нер-во треугольника по Коши-Буняковскому.
+\item $\rho(x, y) = ||x - y||$ --- метрика. 
+\item $||x - y|| \geqslant \mid ||x|| - ||y|| \mid$
+\end{enumerate}
+
+\section*{Пределы в метрических пространствах}
+\addcontentsline{toc}{section}{Пределы в метрических пространствах}
+$\{x_i\} \in X, \lim{x_i} = a$. 2 Варианта:
+\begin{enumerate}
+\item Вне любого $B_r(a), r > 0$ лежит конечное число точек из $\{x_i\}$
+\item $\forall \epsilon > 0 \ \exists N: \ \forall n \geqslant N x_n \in B_{\epsilon}(a)$
+\end{enumerate}
+В общем-то, все как в $\mathbb{R}$. Стоит отметить, что и свойства такие же:
+\begin{enumerate}
+\item Если перемешать члены последовательности, то предел не изменится
+\item У подпоследовательности такой же предел
+\item Если каждую точку последовательности взять с конечной кратностью, то предел не изменится
+\item Единственность предела\\
+
+Доказательство:\\
+
+Пусть у нас 2 предела $a$ и $b$, возьмем $r_a = r_b = \dfrac{\rho(a, b)}{3}$. Тогда вне $B_{r_a}(a)$ конечное число точек последовательности, вне $B_{r_b}(b)$ конечное число точек. Так как они не пересекаются, то во всей последовательности конечно число точек. Ну, так не бывает. 
+\item \textbf{Новое свойство!} $a = \lim x_n \Leftrightarrow \lim \rho(x_n, a) = 0$
+Стоит заметить, что оба выражения эквивалентны тому, что $\forall \epsilon > 0 \ \exists N : \ \forall n \geqslant N \rho(a, x_n) < \epsilon$
+\end{enumerate}
+\subsection*{Определение: ограниченное множество}
+$A \subset X$ ограничено, если оно содержится в некотором шаре
+
+\subsection*{Теорема: сходящаяся последовательность ограничена}
+Очев же, как из первого семестра :)
+
+\subsection*{Теорема: про предельные точки}
+$a$ --- предельная точка $A$ $\leftrightarrow$ $\exists x_n \in A\setminus a, \lim(x_n) = a$. Писать много, но все тоже самое, что и в первом семе.
+
+\subsection*{Теорема: про предельные точки}
+$a$ --- предельная точка $A$ $\leftrightarrow$ $\exists x_n \in A\setminus a, \lim(x_n) = a$. Писать много, но все тоже самое, что и в первом семе.
+
+\subsection*{Теорема: про арифметические действия}
+$(X, \rho)$ --- нормированное пространство. $\lim(y_n) = y_0, \lim(x_n) = x_0$
+\begin{enumerate}
+\item $\lim(x_n + y_n) = x_0 + y_0$
+\item $\lim(x_n - y_n) = x_0 - y_0$
+\item $\lim(\lambda x_n) = \lambda\lim(x_n)$
+\item $\lim(||x_n||) = ||x_0||$
+\item Если в $X$ есть скалярное произведение, то $\lim \langle x_n, y_n \rangle = \langle x_0, y_0 \rangle$
+\end{enumerate}
+
+\subsection*{Частный случай: $R^d$}
+Обычно норма это $||x|| = \sqrt{x_1^2 + ... + x_d^2}$. Для нее и рассматривают пределы. При этом, можно рассматривать сходимость по-координатно (то есть по каждой координает отдельно рассматривать последовательность из $\mathbb{R}$)\\
+
+Не трудно видеть, что оба эти предела совпадают, так как пусть ${\rho(x_n, x_0) \rightarrow 0} \Rightarrow \left(x_n^{(1)} - x_0^{(1)}\right)^2 +  \left(x_n^{(2)} - x_0^{(2)}\right)^2 + ... + \left(x_n^{(d)} - x_0^{(d)}\right)^2 \rightarrow 0$. Сумма неотрицательных последовательностей стремится к 0, тогда каждая из них по отдельности стремится к 0. В другую сторону (от по-координатно к по норме) еще легче.
+\subsection*{Определение: фундаментальная последовательность}
+Определение почти как в первом семе)
+
+\subsection*{Определение: полное пространство}
+$(X, \rho)$ --- полное, если для любой фундаментальной последовательности она имеет предел
+\subsection*{Теорема: $R^d$ --- полное}
+Если $x_n$ --- фундаментальная, то $\forall \epsilon > 0 \ \exists N \forall m,n \geqslant N x_n - x_m< \rho(n, m) < \epsilon$
+\end{document}
