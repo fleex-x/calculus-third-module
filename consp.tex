@@ -92,7 +92,7 @@ f(x) = T_{n, x_{0}}{f(x)} + \frac{1}{n!}\displaystyle\int\limits_{x_0}^{x}(x - t
 \begin{spacing}{1.3}
 $\pi$ и $\pi^2$ иррациональны\\
 План доказательства:\\
-$H_{j} = \frac{1}{j!}\displaystyle\int\limits_{0}^{\frac{\pi}{2}}{\left(\left(\frac{\pi}{2}\right)^2 - x^2\right)^2\cos x dx}$\\
+$H_{j} = \frac{1}{j!}\displaystyle\int\limits_{0}^{\frac{\pi}{2}}{\left(\left(\frac{\pi}{2}\right)^2 - x^2\right)^j\cos x dx}$\\
 \textbf{Свойства:}
 \begin{itemize}
   \item $0 < H_j < \frac{1}{j!}\left( {\frac{\pi}{2}}\right)^{2j}$
@@ -102,10 +102,34 @@ $H_{j} = \frac{1}{j!}\displaystyle\int\limits_{0}^{\frac{\pi}{2}}{\left(\left(\f
   \item $\exists P_j, \ \deg(P_j) \leqslant j, \ H_j = P_j\left(\pi^2  \right)$
 \end{itemize}
 \end{spacing}
-Дальше в 2 строки следует иррациональность $\pi$
+Дальше в 2 строки следует иррациональность $\pi^2$
 
+\section*{Интегральные суммы}
+\addcontentsline{toc}{section}{Интегральные суммы}
 
+\subsection*{\textbf{Определение: равномерная непрерывность}}
+$f : E \rightarrow \mathbb{R}$ равномерно непрерывна $\Rightarrow$ $\forall \varepsilon > 0 \ \exists \delta > 0: 
+\forall x, y: |x - y| < \delta \Rightarrow |f(x) - f(y)| < \varepsilon$
+\subsection*{\textbf{Теорема Кантора}}
+\begin{spacing}{1.3}
+$f: [a, b] \rightarrow \mathbb{R}$ непрерывна $\Rightarrow$ $f$ равномерно непрерывна.\\
+Основная идея: от противного + строим последовательность и сходящуюся подпоследовательность\\
+\end{spacing}
 
+\newpage
+\subsection*{\textbf{Определение: модуль непрерывности}}
+\begin{spacing}{1.3}
+$\omega_{f}(\delta) = \sup\{|f(x) - f(y)| : |x - y| < \delta \}$
+\subsubsection*{\textbf{Свойства:}}
+\begin{itemize}
+  \item $\omega_{f}{(\delta)} \geqslant 0$
+  \item $\omega_{f}{(0)} = 0$
+  \item $\omega_{f}$ нестрого возрастает
+  \item $ |f(x) - f(y)| \leqslant \omega_{f}{(|x - y|)}$
+  \item $f$ --- липшецева с константой $M$ $\Rightarrow$ $\omega_{f}(\delta) \leqslant M\delta$
+  \item $f$ --- равномерно непрерывна на $E$ $\Leftrightarrow$ $\omega_{f}$ непрерывна в 0
+\end{itemize}
+\end{spacing}
 
 \chapter*{Анализ в метрических пространствах}
 \addcontentsline{toc}{chapter}{Анализ в метрических пространствах}
